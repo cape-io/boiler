@@ -1,6 +1,8 @@
 React Transform Boilerplate
 =====================
 
+[![Join the chat at https://gitter.im/cape-io/boiler](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cape-io/boiler?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 I was feeling so stupid I had to start over again...
 
 I started with a basic stateless component that updates without a browser refresh.
