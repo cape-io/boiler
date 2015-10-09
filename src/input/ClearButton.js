@@ -19,9 +19,10 @@ function ClearButton({onClick, ...rest}) {
       className="input-clear-x btn btn-default btn-xs"
       onClick={onClick}
       style={style}
+      tabIndex="-1"
       {...rest}
     >
-      <Icon symbol="remove" />
+      <Icon symbol="remove" hidden="true" />
     </button>
   );
 }
