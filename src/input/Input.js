@@ -36,6 +36,7 @@ class Input extends Component {
     // Pass it along.
     this.changeValue(newValue);
   }
+  // Do we care about this at the input level?
   handleBlur(event) {
     const newValue = event.target.value;
     const {onClose} = this.props;
@@ -94,7 +95,6 @@ class Input extends Component {
       // Is a blur the same as a save?
       <div className="editable-input">
         <input
-          {...other}
           autoFocus
           aria-describedby={`${id}-helpBlock`}
           onKeyDown={this.handleKeyDown.bind(this)}
@@ -102,8 +102,10 @@ class Input extends Component {
           onBlur={this.handleBlur.bind(this)}
           id={id}
           value={value}
+          style={{position: 'relative'}}
+          {...other}
         />
-        {clearEl}
+        { clearEl }
       </div>
     );
   }

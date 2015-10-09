@@ -16,7 +16,13 @@ export class App extends Component {
     return (
       <div>
         <Counter increment={1} color={SUPER_NICE} />
-        <Field onChange={this.handleChange.bind(this)} value={value} id="email" />
+        <Field
+          onChange={this.handleChange.bind(this)}
+          value={value}
+          id="email"
+          placeholder="you@example.com"
+          help="Enter your email please."
+        />
       </div>
     );
   }
