@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import Input from './Input';
 import Help from './Help';
 
-function Field({className, hasErrors, help, id, children, ...other}) {
+function Field({className, hasErrors, status, helpMsg, errorMsg, id, children, ...other}) {
   return (
-    <div className={classNames('editable-form col-md-9', className)}>
+    <div className={classNames('editable-form col-md-9', status, className)}>
       <div className="editable-row">
         <Input
           {...other}
@@ -15,7 +15,7 @@ function Field({className, hasErrors, help, id, children, ...other}) {
         />
         { children }
       </div>
-      { help ? <Help help={help} id={id} hasErrors={hasErrors} /> : false }
+      { helpMsg ? <Help help={helpMsg} id={id} hasErrors={hasErrors} /> : <span>help</span> }
     </div>
   );
 }
