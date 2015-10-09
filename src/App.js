@@ -16,6 +16,7 @@ export class App extends Component {
     return (
       <div>
         <Counter increment={1} color={SUPER_NICE} />
+        <h2>Join or Login</h2>
         <Field
           onChange={this.handleChange.bind(this)}
           value={value}
