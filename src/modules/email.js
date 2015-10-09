@@ -8,6 +8,7 @@ const initialState = {
   hasErrors: false,
   helpMsg: 'Please enter your email address.',
   initial: '',
+  label: 'Email',
   placeholder: 'you@example.com',
   status: null,
   value: '',

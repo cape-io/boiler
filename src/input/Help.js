@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 // A simple span that displays help text.
 // Optional class added when help is related to an error.
-function Help({help, hasErrors, id, children, ...rest}) {
+function Help({helpMsg, errorMsg, hasErrors, id, children, ...rest}) {
   const className = classNames({
     'help-block': true,
     'validation-message': hasErrors
@@ -11,14 +11,15 @@ function Help({help, hasErrors, id, children, ...rest}) {
 
   return (
     <span className={className} id={`${id}-helpBlock`} {...rest}>
-      {children}
-      {help}
+      { children }
+      { helpMsg ? helpMsg + ' ' : false }
+      { errorMsg ? errorMsg : false }
     </span>
   );
 }
 
 Help.propTypes = {
-  help: PropTypes.string.isRequired,
+  helpMsg: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   hasErrors: PropTypes.bool
 };

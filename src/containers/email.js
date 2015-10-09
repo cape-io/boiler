@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Field from '../input/Field';
+import FieldGroup from '../input/FieldGroup';
 import * as actions from '../modules/email';
 
 // This is where we define computed fields (reselect module) or make other changes.
@@ -20,4 +20,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Field);
+export default connect(mapStateToProps, mapDispatchToProps)(FieldGroup);

@@ -35,7 +35,7 @@ export default function emailValidate(value) {
     return makeStatus('warning', 'The email domain tld is too short.');
   }
   if (!validate(value)) {
-    return makeStatus('error', 'Failed RFC checks.', 'preCheck');
+    return makeStatus('error', 'Failed RFC checks.');
   }
   return makeStatus('success', null, false);
 }

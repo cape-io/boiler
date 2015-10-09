@@ -15,7 +15,7 @@ function Field({className, hasErrors, status, helpMsg, errorMsg, id, children, .
         />
         { children }
       </div>
-      { helpMsg ? <Help help={helpMsg} id={id} hasErrors={hasErrors} /> : <span>help</span> }
+      { helpMsg ? <Help {...{helpMsg, id, hasErrors, errorMsg}} /> : false }
     </div>
   );
 }
