@@ -1,20 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import Icon from '../Icon';
+import ClearButton from './ClearButton';
 
 // Simple wrapper around an input field.
 // 1. Checks for changes every 300ms. Useful for safari autocomplete.
 // 2. Also has a clear button that changes input value to empty string.
 
 class Input extends Component {
-  static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    // Needed in place of refs.
-    id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    onClose: PropTypes.func,
-    onNext: PropTypes.func,
-    value: PropTypes.string
-  }
 
   componentDidMount() {
     // When initialized trigger the tick function every interval.
@@ -56,6 +47,9 @@ class Input extends Component {
   // The function that is called every interval.
   tick() {
     const {id} = this.props;
+    if (!id) {
+      return;
+    }
     // Get the form field value. Not using refs so it's usable with Redux...
     // const fieldVal = this.refs[id].getDOMNode().value;
     const fieldVal = document.getElementById(id).value;
@@ -93,16 +87,7 @@ class Input extends Component {
     const {id, onChange, value, ...other} = this.props;
     let clearEl = false;
     if (value) {
-      clearEl = (
-        <button
-          type="button"
-          title="Clear input value"
-          className="input-clear-x btn btn-default btn-xs"
-          onClick={this.clearInputValue.bind(this)}
-        >
-          <Icon symbol="remove" />
-        </button>
-      );
+      clearEl = <ClearButton onClick={this.clearInputValue.bind(this)} />;
     }
 
     return (
@@ -123,5 +108,19 @@ class Input extends Component {
     );
   }
 }
+Input.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  // Needed in place of refs.
+  id: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onClose: PropTypes.func,
+  onNext: PropTypes.func,
+  type: PropTypes.string
+};
+Input.defaultProps = {
+  id: 'input',
+  type: 'text'
+};
+
 
 export default Input;
