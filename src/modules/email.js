@@ -14,7 +14,7 @@ const initialState = {
   placeholder: 'you@example.com',
   status: null,
   value: '',
-  visited: false
+  visited: false,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -23,7 +23,7 @@ export default function reducer(state = initialState, action = {}) {
     case UPDATE:
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
       };
     default:
       return state;
@@ -43,8 +43,8 @@ function handleAsyncValidation({isValid}) {
     type: ASYNC_VALIDATION,
     payload: {
       asyncValidating: false,
-      asyncValid: isValid
-    }
+      asyncValid: isValid,
+    },
   };
 }
 
@@ -55,7 +55,7 @@ export function onChange(email) {
   // Paint the basic action.
   const action = {
     type: UPDATE,
-    payload: syncValidateResults
+    payload: syncValidateResults,
   };
   // Decide if we need an async validation.
   if (shouldAsyncValidate(syncValidateResults)) {
@@ -66,7 +66,11 @@ export function onChange(email) {
       // Send the initial action.
       dispatch(action);
       setTimeout(() => {
-        dispatch(handleAsyncValidation({isValid: true}));
+        const payload = {
+          isValid: true,
+          isUser: false,
+        };
+        dispatch(handleAsyncValidation(payload));
       }, 1000);
     };
   }

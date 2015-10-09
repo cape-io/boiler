@@ -1,7 +1,16 @@
 React Transform Boilerplate
 =====================
 
-A *new* Webpack boilerplate with:
+I was feeling so stupid I had to start over again...
+
+I started with a basic stateless component that updates without a browser refresh.
+Next I added some form and input componetns that I was working on previously in https://github.com/cape-io/cape-forms-demo.
+
+I added in Redux for the simple single input field.
+
+Note: You'll need to allow pop-up windows for this page to see the devtools sidebar thingy.
+
+Using:
 
 * hot reloading React components;
 * error handling inside component `render()` function;
@@ -17,8 +26,8 @@ Built with **[babel-plugin-react-transform](https://github.com/gaearon/babel-plu
 ![](http://i.imgur.com/AhGY28T.gif)
 
 ```
-git clone https://github.com/gaearon/react-transform-boilerplate.git
-cd react-transform-boilerplate
+git clone https://github.com/cape-io/boiler.git
+cd boiler
 npm install
 npm start
 open http://localhost:3000
