@@ -1,4 +1,5 @@
 const UPDATE = 'email/UPDATE';
+const ASYNC_VALIDATE = 'email/ASYNC_VALIDATE';
 const ASYNC_VALIDATION = 'email/ASYNC_VALIDATION';
 
 import emailValidate from './emailValidate';
@@ -9,43 +10,38 @@ const initialState = {
   errorMsg: null,
   hasErrors: false,
   helpMsg: 'Please enter your email address.',
+  // validMsg: 'This looks like a valid email.',
   initial: '',
   label: 'Email',
   placeholder: 'you@example.com',
+  required: true,
   status: null,
+  user: null,
   value: '',
   visited: false,
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case ASYNC_VALIDATION:
     case UPDATE:
+      const { value, errorMsg, ...other } = action.payload;
       return {
         ...state,
-        ...action.payload,
+        ...other,
+        asyncValid: false,
+        asyncValidating: false,
+        errorMsg: value ? errorMsg : null,
+        value: value,
+        user: null,
+      };
+    case ASYNC_VALIDATE:
+      return {
+        ...state,
+        asyncValidating: true,
       };
     default:
       return state;
   }
-}
-
-function shouldAsyncValidate(payload) {
-  if (payload.hasErrors) {
-    return false;
-  }
-  return true;
-}
-
-function handleAsyncValidation({isValid}) {
-  // @TODO Do something with invalid result or error.
-  return {
-    type: ASYNC_VALIDATION,
-    payload: {
-      asyncValidating: false,
-      asyncValid: isValid,
-    },
-  };
 }
 
 // Update the curent value. Update various properties based on validation.
@@ -57,23 +53,36 @@ export function onChange(email) {
     type: UPDATE,
     payload: syncValidateResults,
   };
-  // Decide if we need an async validation.
-  if (shouldAsyncValidate(syncValidateResults)) {
-    // Adjust the payload before sending the first action.
-    action.payload.asyncValidating = true;
-    // Return a function with the first param dispatch.
-    return dispatch => {
-      // Send the initial action.
-      dispatch(action);
-      setTimeout(() => {
-        const payload = {
-          isValid: true,
-          isUser: false,
-        };
-        dispatch(handleAsyncValidation(payload));
-      }, 1000);
-    };
-  }
   // Send action object. No async processing.
   return action;
+}
+
+function handleAsyncValidation(res) {
+  // @TODO Do something with invalid result or error.
+  // Check to make sure state is still asyncValidating.
+  return {
+    type: ASYNC_VALIDATION,
+    payload: {
+      asyncValidating: false,
+      asyncValid: !res.hasErrors,
+      ...res,
+    },
+  };
+}
+
+export function onSubmit() {
+  return (dispatch, getState) => {
+    const { email: {hasErrors, value} } = getState();
+    // Decide if we need an async validation.
+    if (hasErrors) {
+      console.error('Submit with errors should never happen.');
+      return;
+    }
+    // Dispatch ASYNC_VALIDATE event.
+    dispatch({type: ASYNC_VALIDATE});
+    // Run async call.
+    fetch(`http://kc.l:3031/api/user/email/${value}`)
+      .then(response => response.json())
+      .then(json => dispatch(handleAsyncValidation(json)));
+  };
 }
