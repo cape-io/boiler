@@ -13,7 +13,7 @@ function FieldGroup({id, label, editable, required, status, children, ...other})
   }
   return (
     <FormGroup id={id} label={label} editable={editable} required={required} status={status}>
-      <Field id={id} status={status} {...other}>
+      <Field id={id} status={status} disabled={asyncValidating} {...other}>
         { ButtonsEl }
       </Field>
       { children }

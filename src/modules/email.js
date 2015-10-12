@@ -39,6 +39,11 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         asyncValidating: true,
       };
+    case ASYNC_VALIDATION:
+      return {
+        ...state,
+        ...action.payload,
+      };
     default:
       return state;
   }
@@ -65,6 +70,7 @@ function handleAsyncValidation(res) {
     payload: {
       asyncValidating: false,
       asyncValid: !res.hasErrors,
+      status: res.hasErrors ? 'error' : 'success',
       ...res,
     },
   };

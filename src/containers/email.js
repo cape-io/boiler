@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import FieldGroup from '../input/FieldGroup';
+import JoinLogin from '../components/JoinLogin';
 import * as actions from '../modules/email';
 
 // This is where we define computed fields (reselect module) or make other changes.
@@ -9,7 +9,7 @@ import * as actions from '../modules/email';
 function mapStateToProps(state) {
   return {
     id: 'email',
-    ...state.email
+    ...state.email,
   };
 }
 
@@ -20,4 +20,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actions, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FieldGroup);
+export default connect(mapStateToProps, mapDispatchToProps)(JoinLogin);

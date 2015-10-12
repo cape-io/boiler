@@ -8,7 +8,6 @@ export class App extends Component {
     return (
       <div className="container">
         <Counter increment={1} color={SUPER_NICE} />
-        <h2>Join or Login</h2>
         <Email />
       </div>
     );
