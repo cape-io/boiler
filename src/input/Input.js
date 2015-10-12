@@ -39,11 +39,14 @@ class Input extends Component {
   // Do we care about this at the input level?
   handleBlur(event) {
     const newValue = event.target.value;
-    const {onClose} = this.props;
+    const {onClose, onSubmit} = this.props;
     // Empty value. Just close the form.
     if (!newValue && onClose) {
       onClose();
+    } else if (newValue && onSubmit) {
+      onSubmit();
     }
+    // Value and onSubmit.
   }
   // The function that is called every interval.
   tick() {
@@ -64,7 +67,7 @@ class Input extends Component {
     this.changeValue('');
   }
   handleKeyDown(event) {
-    const {onClose, onNext} = this.props;
+    const {onClose, onNext, onSubmit} = this.props;
     switch (event.keyCode) {
       // escape key.
       case 27:
@@ -73,16 +76,21 @@ class Input extends Component {
           onClose();
         }
         break;
+      // tab key.
       case 9:
         if (onNext) {
           event.preventDefault();
           onNext();
         }
         break;
+      // return key.
+      case 13:
+        if (onSubmit) {
+          onSubmit();
+        }
+        break;
       default:
     }
-    // return 13
-    // tab 9
   }
   render() {
     const {id, onChange, value, ...other} = this.props;
@@ -116,12 +124,13 @@ Input.propTypes = {
   id: PropTypes.string,
   value: PropTypes.string.isRequired,
   onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
   onNext: PropTypes.func,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 Input.defaultProps = {
   id: 'input',
-  type: 'text'
+  type: 'text',
 };
 
 
