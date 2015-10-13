@@ -14,7 +14,9 @@ class Input extends Component {
 
   // Only update when the props value changes.
   shouldComponentUpdate(nextProps) {
-    return nextProps.value !== this.props.value;
+    const newValue = nextProps.value !== this.props.value;
+    const newDisabled = nextProps.disabled !== this.props.disabled;
+    return newValue || newDisabled;
   }
 
   componentWillUnmount() {
@@ -98,7 +100,6 @@ class Input extends Component {
     if (value) {
       clearEl = <ClearButton onClick={this.clearInputValue.bind(this)} />;
     }
-
     return (
       // Is a blur the same as a save?
       <div className="editable-input">
@@ -123,6 +124,7 @@ Input.propTypes = {
   // Needed in place of refs.
   id: PropTypes.string,
   value: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   onNext: PropTypes.func,

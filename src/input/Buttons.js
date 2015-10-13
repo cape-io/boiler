@@ -41,8 +41,8 @@ class EditableButtons extends Component {
 }
 
 EditableButtons.propTypes = {
-  onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
   disabled: PropTypes.bool,
 };
 export default EditableButtons;
