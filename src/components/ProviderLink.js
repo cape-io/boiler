@@ -19,6 +19,7 @@ ProviderLink.propTypes = {
   type: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func,
+  link: PropTypes.string,
 };
 ProviderLink.defaultProps = {};
 export default ProviderLink;

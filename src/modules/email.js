@@ -148,3 +148,9 @@ export function onSubmit() {
       .catch((err) => dispatch(handleAsyncFailure(err)));
   };
 }
+
+export function sendToken(email) {
+  //@TODO send token request to server.
+  console.log(email);
+  return;
+}
