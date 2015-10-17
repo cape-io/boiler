@@ -1,8 +1,8 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { IndexRoute, Route } from 'react-router';
 
-import { App } from './App';
 import {
+    App,
     Counter,
     JoinLogin,
     JoinLoginEmail,
@@ -10,22 +10,22 @@ import {
   } from './containers';
 
 export default function routes(store) {
-  const requireLogin = (nextState, replaceState, cb) => {
-    function checkAuth() {
-      const { auth: { user }} = store.getState();
-      if (!user) {
-        // oops, not logged in, so can't be here!
-        replaceState(null, '/login');
-      }
-      cb();
-    }
-
-    if (!isAuthLoaded(store.getState())) {
-      store.dispatch(loadAuth()).then(checkAuth);
-    } else {
-      checkAuth();
-    }
-  };
+  // const requireLogin = (nextState, replaceState, cb) => {
+  //   function checkAuth() {
+  //     const { auth: { user }} = store.getState();
+  //     if (!user) {
+  //       // oops, not logged in, so can't be here!
+  //       replaceState(null, '/login');
+  //     }
+  //     cb();
+  //   }
+  //
+  //   if (!isAuthLoaded(store.getState())) {
+  //     store.dispatch(loadAuth()).then(checkAuth);
+  //   } else {
+  //     checkAuth();
+  //   }
+  // };
 
   /**
    * Please keep routes in alphabetical order
