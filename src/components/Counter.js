@@ -25,9 +25,12 @@ export default class Counter extends Component {
   render() {
     const {color, increment} = this.props;
     return (
-      <p style={{ color }}>
-        Counter ({increment}): {this.state.counter}
-      </p>
+      <div>
+        <h1 style={{ color }}>
+          Counter ({increment}): {this.state.counter}
+        </h1>
+        <p>Updates every 30 seconds.</p>
+      </div>
     );
   }
 }
