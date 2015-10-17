@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -14,6 +15,10 @@ module.exports = {
   },
   plugins: [
     // Redux uses this.
+    new OpenBrowserPlugin({
+      url: 'http://localhost:3000',
+      browser: 'Google Chrome',
+    }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
