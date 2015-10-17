@@ -8,7 +8,7 @@ export default class List extends Component {
   }
 
   render() {
-    const pages = this.props.routes[1].childRoutes;
+    const pages = this.props.routes[0].childRoutes;
     return (
       <div>
         <h1>Route Index</h1>

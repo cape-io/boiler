@@ -14,13 +14,13 @@ import reducer from './modules';
 const middleware = [thunk];
 
 // Allow the function to accept an initialState object.
-export default function configureStore(initialState) {
+export default function configureStore(initialState, getRoutes) {
   let finalCreateStore;
   // In production, we want to use just the middleware.
   if (process.env.NODE_ENV === 'production') {
     finalCreateStore = compose(
       applyMiddleware(...middleware),
-      reduxReactRouter({ createHistory })
+      reduxReactRouter({ createHistory, getRoutes })
     );
   } else {
     // In development, we want to use some store enhancers from redux-devtools.
@@ -32,7 +32,7 @@ export default function configureStore(initialState) {
     finalCreateStore = compose(
       // Enables your middleware:
       applyMiddleware(...middleware),
-      reduxReactRouter({ createHistory }),
+      reduxReactRouter({ createHistory, getRoutes }),
       // Provides support for DevTools:
       devTools(),
       // Lets you write ?debug_session=<name> in address bar to persist debug sessions.

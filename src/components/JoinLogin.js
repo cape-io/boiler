@@ -26,7 +26,7 @@ function JoinLogin({leadMsg, headerMsg, children, ...rest}) {
   return (
     <div>
       <h2>{ headerMsg }</h2>
-      <p className="lead">{ leadMsg }!</p>
+      <p className="lead">{ leadMsg }</p>
       { children }
     </div>
   );
@@ -38,4 +38,5 @@ JoinLogin.propTypes = {
   children: PropTypes.node.isRequired,
 };
 JoinLogin.defaultProps = {};
+
 export default JoinLogin;
