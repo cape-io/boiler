@@ -7,7 +7,7 @@ export default class Counter extends Component {
   }
   static propTypes = {
     color: PropTypes.string.isRequired,
-    increment: PropTypes.number.isRequired
+    increment: PropTypes.number.isRequired,
   }
   componentDidMount() {
     this.interval = setInterval(() => this.tick(), 30000);
@@ -18,14 +18,15 @@ export default class Counter extends Component {
 
   tick() {
     this.setState({
-      counter: this.state.counter + this.props.increment
+      counter: this.state.counter + this.props.increment,
     });
   }
 
   render() {
+    const {color, increment} = this.props;
     return (
-      <p style={{ color: this.props.color }}>
-        Counter ({this.props.increment}): {this.state.counter}
+      <p style={{ color }}>
+        Counter ({increment}): {this.state.counter}
       </p>
     );
   }

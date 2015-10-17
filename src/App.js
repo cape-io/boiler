@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { SUPER_NICE } from './colors';
-import Counter from './Counter';
-import Email from './containers/Email';
+import React, { Component, PropTypes } from 'react';
 
 export class App extends Component {
+  static propTypes = {
+    children: PropTypes.node,
+  }
   render() {
+    const {children} = this.props;
     return (
       <div className="container">
-        <Counter increment={1} color={SUPER_NICE} />
-        <Email />
+        { children }
       </div>
     );
   }

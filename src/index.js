@@ -1,15 +1,25 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Provider} from 'react-redux';
+import {ReduxRouter} from 'redux-router';
+import {Route} from 'react-router';
+
+import configureStore from './configureStore';
 
 import { App } from './App';
-import configureStore from './configureStore';
+import CounterContainer from './containers/CounterContainer';
+import Email from './containers/Email';
 
 const store = configureStore();
 
 render(
   <Provider store={store}>
-    <App />
+    <ReduxRouter>
+      <Route path="/" component={App}>
+        <Route path="counter" component={CounterContainer} increment={1} color="darkred" />
+        <Route path="login" component={Email} />
+      </Route>
+    </ReduxRouter>
   </Provider>,
   document.getElementById('root')
 );
