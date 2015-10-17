@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import ProviderLinks from './ProviderLinks';
 
 // Basic suggestion button.
-function Login({photo, providers, email, onClick}) {
+function Login({photo, providers, sendingToken, sentTokenSuccess, email, onClick}) {
   const loginProviders = [];
   function addProviderInfo(type, label) {
     const info = {
@@ -34,7 +34,9 @@ function Login({photo, providers, email, onClick}) {
   return (
     <div>
       { PhotoEl }
-      <ProviderLinks providers={loginProviders} />
+      { sendingToken || sentTokenSuccess ? false : <ProviderLinks providers={loginProviders} /> }
+      { sendingToken ? <h4>Sending email with special login link</h4> : false }
+      { sentTokenSuccess ? <h3>Please check your email</h3> : false }
       <pre>{ JSON.stringify(loginProviders, null, 2) }</pre>
     </div>
   );

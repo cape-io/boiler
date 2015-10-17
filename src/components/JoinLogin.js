@@ -5,7 +5,7 @@ import Login from './Login';
 
 // Basic suggestion button.
 function JoinLogin(props) {
-  const { asyncValid, user, sendToken, ...other } = props;
+  const { asyncValid, user, sendToken, sendingToken, sentTokenSuccess, ...other } = props;
   let leadMsg = 'Enter your email to start the login process.';
   let headerMsg = 'Join or Login';
 
@@ -13,7 +13,14 @@ function JoinLogin(props) {
   if (asyncValid && user) {
     headerMsg = 'Login';
     leadMsg = 'Select a login method';
-    ChildEl = <Login {...user} onClick={sendToken} />;
+    ChildEl = (
+      <Login
+        sendingToken={sendingToken}
+        sentTokenSuccess={sentTokenSuccess}
+        onClick={sendToken}
+        {...user}
+      />
+    );
   } else {
     ChildEl = <FieldGroup {...other} />;
   }

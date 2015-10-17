@@ -2,6 +2,8 @@ const UPDATE = 'email/UPDATE';
 const ASYNC_VALIDATE = 'email/ASYNC_VALIDATE';
 const ASYNC_VALIDATION = 'email/ASYNC_VALIDATION';
 const ASYNC_REQUEST_FAILURE = 'email/ASYNC_REQUEST_FAILURE';
+const SEND_TOKEN = 'email/SEND_EMAIL_TOKEN';
+const SENT_TOKEN = 'email/SENT_EMAIL_TOKEN';
 
 import emailValidate from './emailValidate';
 
@@ -56,6 +58,17 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         ...action.payload,
       };
+    case SEND_TOKEN:
+      return {
+        ...state,
+        sendingToken: true,
+      };
+    case SENT_TOKEN:
+      return {
+        ...state,
+        sendingToken: false,
+        sentTokenSuccess: action.payload,
+      };
     default:
       return state;
   }
@@ -87,6 +100,14 @@ function handleAsyncFailure() {
   };
 }
 
+function handleEmailTokenResponse({status, reject_reason}) {
+  return {
+    type: SENT_TOKEN,
+    payload: (status === 'sent'),
+    meta: {reject_reason},
+  };
+}
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response.json();
@@ -104,7 +125,6 @@ function checkStatus(response) {
     asyncRequestFailure: true,
   };
 }
-
 // Update the curent value. Update various properties based on validation.
 export function onChange(email) {
   // Get initial validation results.
@@ -150,7 +170,28 @@ export function onSubmit() {
 }
 
 export function sendToken(email) {
-  //@TODO send token request to server.
-  console.log(email);
-  return;
+  return (dispatch, getState) => {
+    // @TODO Need a way to know what the root key for this module.
+    const { email: {user: {id}} } = getState();
+    // Decide if we need an async validation.
+    if (!isOnLine()) {
+      dispatch(handleAsyncFailure());
+      return;
+    }
+    // Dispatch ASYNC_VALIDATE event.
+    dispatch({type: SEND_TOKEN});
+    // Run async call.
+    const options = {
+      method: 'post',
+      body: JSON.stringify({id, email}),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+    fetch(`http://kc.l:3031/api/user/token/send`, options)
+      .then((response) => response.json())
+      .then(json => dispatch(handleEmailTokenResponse(json)))
+      .catch((err) => dispatch(handleEmailTokenResponse(err)));
+  };
 }

@@ -18,5 +18,7 @@ ProviderLinks.propTypes = {
   providers: PropTypes.array.isRequired,
   headerMsg: PropTypes.string.isRequired,
 };
-ProviderLinks.defaultProps = {};
+ProviderLinks.defaultProps = {
+  headerMsg: 'Select an option to authenticate with',
+};
 export default ProviderLinks;
