@@ -8,7 +8,7 @@ import configureStore from './configureStore';
 
 import { App } from './App';
 import CounterContainer from './containers/CounterContainer';
-import Email from './containers/Email';
+import JoinLogin from './containers/JoinLogin';
 import List from './containers/List';
 const store = configureStore();
 
@@ -18,7 +18,7 @@ render(
       <Route path="/" component={App}>
         <IndexRoute component={List} />
         <Route path="counter" component={CounterContainer} increment={1} color="darkred" />
-        <Route path="login" component={Email} />
+        <Route path="join-login" component={JoinLogin} />
       </Route>
     </ReduxRouter>
   </Provider>,

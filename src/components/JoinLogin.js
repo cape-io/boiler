@@ -1,42 +1,42 @@
 import React, { PropTypes } from 'react';
 
-import FieldGroup from '../input/FieldGroup';
-import Login from './Login';
+// import FieldGroup from '../input/FieldGroup';
+// import Login from './Login';
 
 // Basic suggestion button.
-function JoinLogin(props) {
-  const { asyncValid, user, sendToken, sendingToken, sentTokenSuccess, ...other } = props;
-  let leadMsg = 'Enter your email to start the login process.';
-  let headerMsg = 'Join or Login';
-
-  let ChildEl = false;
-  if (asyncValid && user) {
-    headerMsg = 'Login';
-    leadMsg = 'Select a login method';
-    ChildEl = (
-      <Login
-        sendingToken={sendingToken}
-        sentTokenSuccess={sentTokenSuccess}
-        onClick={sendToken}
-        {...user}
-      />
-    );
-  } else {
-    ChildEl = <FieldGroup {...other} />;
-  }
+function JoinLogin({leadMsg, headerMsg, children, ...rest}) {
+  // const { asyncValid, user, sendToken, sendingToken, sentTokenSuccess, ...other } = props;
+  //
+  // let ChildEl = false;
+  // if (asyncValid && user) {
+  //   headerMsg = 'Login';
+  //   leadMsg = 'Select a login method';
+  //   ChildEl = (
+  //     <Login
+  //       sendingToken={sendingToken}
+  //       sentTokenSuccess={sentTokenSuccess}
+  //       onClick={sendToken}
+  //       {...user}
+  //     />
+  //   );
+  // } else {
+  //   ChildEl = <FieldGroup {...other} />;
+  // }
 
   return (
     <div>
       <h2>{ headerMsg }</h2>
-      <p>{ leadMsg }</p>
-      { ChildEl }
+      <p className="lead">{ leadMsg }</p>
+      { children }
+      <pre>{ JSON.stringify(rest, null, 2) }</pre>
     </div>
   );
 }
 
 JoinLogin.propTypes = {
-  asyncValid: PropTypes.bool.isRequired,
+  leadMsg: PropTypes.string.isRequired,
+  headerMsg: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
-JoinLogin.defaultProps = {
-};
+JoinLogin.defaultProps = {};
 export default JoinLogin;
