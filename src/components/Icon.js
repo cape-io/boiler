@@ -14,10 +14,10 @@ function Icon({symbol, className, hidden, ...rest}) {
 Icon.propTypes = {
   symbol: PropTypes.string.isRequired,
   className: PropTypes.string,
-  hidden: PropTypes.string
+  hidden: PropTypes.string,
 };
 Icon.defaultProps = {
-  hidden: 'false'
+  hidden: 'false',
 };
 
 export default Icon;
