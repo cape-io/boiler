@@ -26,9 +26,8 @@ function JoinLogin({leadMsg, headerMsg, children, ...rest}) {
   return (
     <div>
       <h2>{ headerMsg }</h2>
-      <p className="lead">{ leadMsg }</p>
+      <p className="lead">{ leadMsg }!</p>
       { children }
-      <pre>{ JSON.stringify(rest, null, 2) }</pre>
     </div>
   );
 }
