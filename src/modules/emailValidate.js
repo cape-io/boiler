@@ -8,7 +8,7 @@ export default function emailValidate(value) {
       hasErrors,
       status,
       value,
-      visited: true
+      visited: true,
     };
   }
   // Email is too short.
