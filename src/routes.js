@@ -21,9 +21,9 @@ export default (
     <Route path="join-login" component={JoinLogin}>
       <IndexRoute component={JoinLoginEmail} />
     </Route>
-    <Route path="/:login/:name"
+    <Route path="gh/:login/:name"
            component={RepoPage} />
-    <Route path="/:login"
+         <Route path="gh/:login"
            component={UserPage} />
   </Route>
 )

@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
 
 export default class List extends Component {
 
@@ -8,7 +8,7 @@ export default class List extends Component {
   }
 
   render() {
-    const pages = this.props.routes[0].childRoutes;
+    const pages = this.props.routes[0].childRoutes
     return (
       <div>
         <h1>Route Index</h1>
@@ -21,6 +21,6 @@ export default class List extends Component {
         </ul>
         <pre>{ JSON.stringify(this.props, null, 2) }</pre>
       </div>
-    );
+    )
   }
 }
