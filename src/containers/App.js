@@ -45,8 +45,8 @@ class App extends Component {
         <Explore value={inputValue}
                  onChange={this.handleChange} />
         <hr />
-        {this.renderErrorMessage()}
-        {children}
+        { this.renderErrorMessage() }
+        { children }
       </div>
     )
   }
