@@ -3,6 +3,9 @@
     "rackt",
     "import/warnings"
   ],
+  "ecmaFeatures": {
+    "jsx": true
+  },
   "env": {
     "browser": true,
     "node": true,
