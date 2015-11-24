@@ -11,11 +11,11 @@ export default class Repo extends Component {
     return (
       <div className="Repo">
         <h3>
-          <Link to={`/${login}/${name}`}>
+          <Link to={`/gh/${login}/${name}`}>
             {name}
           </Link>
           {' by '}
-          <Link to={`/${login}`}>
+          <Link to={`/gh/${login}`}>
             {login}
           </Link>
         </h3>

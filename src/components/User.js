@@ -7,7 +7,7 @@ export default class User extends Component {
 
     return (
       <div className="User">
-        <Link to={`/${login}`}>
+        <Link to={`/gh/${login}`}>
           <img src={avatarUrl} width="72" height="72" />
           <h3>
             {login} {name && <span>({name})</span>}

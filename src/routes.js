@@ -4,6 +4,7 @@ import { IndexRoute, Route } from 'react-router'
 import {
     App,
     Counter,
+    Explore,
     JoinLogin,
     JoinLoginEmail,
     List,
@@ -21,9 +22,15 @@ export default (
     <Route path="join-login" component={JoinLogin}>
       <IndexRoute component={JoinLoginEmail} />
     </Route>
-    <Route path="gh/:login/:name"
-           component={RepoPage} />
-         <Route path="gh/:login"
-           component={UserPage} />
+    <Route path="gh" component={Explore}>
+      <Route
+        path=":login/:name"
+        component={RepoPage}
+      />
+      <Route
+        path=":login"
+        component={UserPage}
+      />
+    </Route>
   </Route>
 )

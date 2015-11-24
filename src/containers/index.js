@@ -2,6 +2,7 @@
 export App from './App'
 // Redux connection containers.
 export Counter from './Counter'
+export Explore from './Explore'
 export JoinLogin from './JoinLogin/JoinLogin'
 export JoinLoginEmail from './JoinLogin/Email'
 export List from './List'
