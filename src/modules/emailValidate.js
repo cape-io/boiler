@@ -1,5 +1,5 @@
-import includes from 'lodash.includes';
-import { validate } from 'email-validator';
+import includes from 'lodash/collection/includes'
+import { validate } from 'email-validator'
 
 export default function emailValidate(value) {
   function makeStatus(status, errorMsg, hasErrors = true) {
@@ -9,33 +9,33 @@ export default function emailValidate(value) {
       status,
       value,
       visited: true,
-    };
+    }
   }
   // Email is too short.
   if (value.length < 3) {
-    return makeStatus(null, 'Email is too short.');
+    return makeStatus(null, 'Email is too short.')
   }
   if (!includes(value, '@')) {
-    return makeStatus('warning', 'The email must contain an "@" symbol.');
+    return makeStatus('warning', 'The email must contain an "@" symbol.')
   }
-  const parts = value.split('@');
-  const local = parts[0];
+  const parts = value.split('@')
+  const local = parts[0]
   if (!local) {
-    return makeStatus('warning', 'Please include the unique username part before the "@" symbol.');
+    return makeStatus('warning', 'Please include the unique username part before the "@" symbol.')
   }
-  const domain = parts[1];
+  const domain = parts[1]
   if (!domain) {
-    return makeStatus('warning', 'Please include a valid domain for your email.');
+    return makeStatus('warning', 'Please include a valid domain for your email.')
   }
   if (!includes(domain, '.')) {
-    return makeStatus('warning', 'The domain part of your email needs a tld.');
+    return makeStatus('warning', 'The domain part of your email needs a tld.')
   }
-  const tld = domain.split('.')[1];
+  const tld = domain.split('.')[1]
   if (!(tld.length > 1)) {
-    return makeStatus('warning', 'The email domain tld is too short.');
+    return makeStatus('warning', 'The email domain tld is too short.')
   }
   if (!validate(value)) {
-    return makeStatus('error', 'Failed RFC checks.');
+    return makeStatus('error', 'Failed RFC checks.')
   }
-  return makeStatus('success', null, false);
+  return makeStatus('success', null, false)
 }
