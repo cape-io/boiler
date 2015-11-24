@@ -1,28 +1,18 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { ReduxRouter } from 'redux-router';
+import React from 'react'
+import { render } from 'react-dom'
+// Describe what babel polyfill does.
+import 'babel-polyfill'
 
-import configureStore from './configureStore';
+// Root React component.
+import Root from './containers/Root'
+import configureStore from './redux/configureStore'
 
-import getRoutes from './routes';
-const initialState = {};
-const store = configureStore(initialState, getRoutes);
+// Define our inital state object. This could be a fetch() to an API endpoint.
+const initialState = window.__data || {}
+// Configure and create our Redux store.
+const store = configureStore(initialState)
 
-const component = <ReduxRouter routes={getRoutes(store)} />;
-const destEl = document.getElementById('root');
-
-render(
-  <Provider store={store}>
-    { component }
-  </Provider>,
-  destEl
-);
-
-if (process.env.NODE_ENV !== 'production') {
-  // Use require because imports can't be conditional.
-  // In production, you should ensure process.env.NODE_ENV
-  // is envified so that Uglify can eliminate this
-  // module and its dependencies as dead code.
-  require('./createDevToolsWindow')(store);
-}
+// Define our destination where we insert our root react component.
+const destEl = document.getElementById('root')
+// The root component only needs the Redux store as a prop.
+render(<Root store={store} />, destEl)
