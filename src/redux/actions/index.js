@@ -155,7 +155,7 @@ function fetchForm(formId) {
 // Relies on Redux Thunk middleware.
 export function loadForm(formId) {
   return (dispatch, getState) => {
-    const form = getState().entities.form[formId]
+    const form = getState().entities.forms[formId]
     if (form) {
       return null
     }

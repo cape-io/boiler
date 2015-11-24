@@ -8,7 +8,7 @@ import zip from 'lodash/array/zip'
 
 function loadData({ login, loadUser, loadStarred }) {
   loadUser(login, [ 'name' ])
-  loadStarred(login)
+  // loadStarred(login)
 }
 
 class UserPage extends Component {
@@ -77,7 +77,7 @@ function mapStateToProps(state) {
     pagination: { starredByUser },
     entities: { users, repos },
   } = state
-
+  console.log('gh user mapStateToProps', users[login])
   const starredPagination = starredByUser[login] || { ids: [] }
   const starredRepos = starredPagination.ids.map(id => repos[id])
   const starredRepoOwners = starredRepos.map(repo => users[repo.owner])

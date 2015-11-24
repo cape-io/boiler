@@ -18,7 +18,7 @@ function getNextPageUrl(response) {
 }
 
 const APIS = {
-  cape: 'https://v5.api.cape.io/api/',
+  cape: 'http://v5.api.cape.io/api/',
   github: 'https://api.github.com/',
 }
 

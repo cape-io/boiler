@@ -1,21 +1,21 @@
 import React, { PropTypes } from 'react'
 
 // Basic suggestion button.
-function JoinLogin({ leadMsg, headerMsg, children, ...rest }) {
-
+function JoinLogin({ form, children, ...rest }) {
+  const { title, intro } = form
   return (
     <div>
-      <h2>{ headerMsg }</h2>
-      <p className="lead">{ leadMsg }</p>
-      <p>hi!</p>
+      <h2>{ title }</h2>
+      <p className="lead">{ intro }</p>
       { children }
     </div>
   )
 }
 
 JoinLogin.propTypes = {
-  leadMsg: PropTypes.string.isRequired,
-  headerMsg: PropTypes.string.isRequired,
+  form: PropTypes.object.isRequired,
+  // leadMsg: PropTypes.string.isRequired,
+  // headerMsg: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 }
 JoinLogin.defaultProps = {}

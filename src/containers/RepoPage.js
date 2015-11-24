@@ -69,14 +69,14 @@ RepoPage.propTypes = {
   stargazers: PropTypes.array.isRequired,
   stargazersPagination: PropTypes.object,
   loadRepo: PropTypes.func.isRequired,
-  loadStargazers: PropTypes.func.isRequired
+  loadStargazers: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {
   const { login, name } = state.router.params
   const {
     pagination: { stargazersByRepo },
-    entities: { users, repos }
+    entities: { users, repos },
   } = state
 
   const fullName = `${login}/${name}`
@@ -89,11 +89,11 @@ function mapStateToProps(state) {
     stargazers,
     stargazersPagination,
     repo: repos[fullName],
-    owner: users[login]
+    owner: users[login],
   }
 }
 
 export default connect(mapStateToProps, {
   loadRepo,
-  loadStargazers
+  loadStargazers,
 })(RepoPage)
