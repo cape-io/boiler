@@ -6,7 +6,7 @@ React Transform Boilerplate
 I was feeling so stupid I had to start over again...
 
 I started with a basic stateless component that updates without a browser refresh.
-Next I added some form and input componetns that I was working on previously in https://github.com/cape-io/cape-forms-demo.
+Next I added some form and input components that I was working on previously in https://github.com/cape-io/cape-forms-demo.
 
 I added in Redux for the simple single input field.
 
