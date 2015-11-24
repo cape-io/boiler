@@ -1,7 +1,7 @@
 {
   "name": "boiler",
-  "version": "1.0.0",
-  "description": "A new Webpack boilerplate with hot reloading React components, and error handling on module and component level.",
+  "version": "1.0.1",
+  "description": "Boilerplate with hot reloading React components.",
   "scripts": {
     "clean": "rimraf dist",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gaearon/react-transform-boilerplate.git"
+    "url": "https://github.com/cape-io/boiler.git"
   },
   "keywords": [
     "react",
@@ -26,10 +26,10 @@
     "babel",
     "react-transform"
   ],
-  "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
+  "author": "Kai Curry <kai@cape.io> (http://github.com/webmasterkai)",
   "license": "CC0-1.0",
   "bugs": {
-    "url": "https://github.com/gaearon/react-transform-boilerplate/issues"
+    "url": "https://github.com/cape-io/boiler/issues"
   },
   "homepage": "https://github.com/cape-io/boiler",
   "dependencies": {
