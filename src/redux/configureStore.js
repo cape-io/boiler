@@ -1,5 +1,5 @@
 // Redux.
-import { createStore, applyMiddleware, compose } from 'redux'
+import { applyMiddleware, createStore, compose } from 'redux'
 // Redux Middleware.
 // Allow function action creators.
 import thunk from 'redux-thunk'
@@ -8,12 +8,13 @@ import createLogger from 'redux-logger'
 // Custom api.
 import api from './middleware/api'
 // Redux Reducers.
+// Our reducer index.
 import rootReducer from './reducer'
 // Redux Dev stuff.
-// The redux state sidebar thing.
+// The redux state sidebar thing store enhancer.
 import DevTools from '../containers/DevTools'
 
-// Router stuff.
+// Redux Router stuff.
 import { reduxReactRouter } from 'redux-router'
 import createHistory from 'history/lib/createBrowserHistory'
 // Jump to top of page when switching routes.
@@ -37,6 +38,7 @@ const finalCreateStore = compose(
 )(createStore)
 
 // Configure and create Redux store.
+// Allow the function to accept an initialState object.
 export default function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState)
 
