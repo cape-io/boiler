@@ -19,7 +19,7 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={List} />
     <Route path="counter" component={Counter} increment={1} color="darkred" />
-    <Route path="join-login" component={JoinLogin}>
+    <Route path="user" component={JoinLogin}>
       <IndexRoute component={JoinLoginEmail} />
     </Route>
     <Route path="gh" component={Explore}>

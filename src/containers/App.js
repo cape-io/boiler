@@ -48,7 +48,6 @@ App.propTypes = {
   errorMessage: PropTypes.string,
   resetErrorMessage: PropTypes.func.isRequired,
   pushState: PropTypes.func.isRequired,
-  inputValue: PropTypes.string.isRequired,
   // Injected by React Router
   children: PropTypes.node,
 }

@@ -19,7 +19,6 @@ export default class List extends Component {
             </li>
           )) }
         </ul>
-        <pre>{ JSON.stringify(this.props, null, 2) }</pre>
       </div>
     )
   }

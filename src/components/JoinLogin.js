@@ -7,6 +7,7 @@ function JoinLogin({ leadMsg, headerMsg, children, ...rest }) {
     <div>
       <h2>{ headerMsg }</h2>
       <p className="lead">{ leadMsg }</p>
+      <p>hi!</p>
       { children }
     </div>
   )
