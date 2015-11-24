@@ -22,6 +22,6 @@ User.propTypes = {
   user: PropTypes.shape({
     login: PropTypes.string.isRequired,
     avatarUrl: PropTypes.string.isRequired,
-    name: PropTypes.string
-  }).isRequired
+    name: PropTypes.string,
+  }).isRequired,
 }
