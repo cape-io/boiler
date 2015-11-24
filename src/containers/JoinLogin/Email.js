@@ -1,8 +1,8 @@
-import { bindActionCreators } from 'redux'
+import { bindActionCreators, compose } from 'redux'
 import { connect } from 'react-redux'
+import { reduxForm } from 'redux-form'
 
 import FieldGroup from '../../components/input/FieldGroup'
-
 import * as actions from '../../redux/modules/email'
 
 // This is where we define computed fields (reselect module) or make other changes.
@@ -21,4 +21,12 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actions, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FieldGroup)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  reduxForm({
+    // A unique name for this form.
+    form: 'login',
+    // All the fields in your form.
+    fields: [ 'email' ],
+  })
+)(FieldGroup)

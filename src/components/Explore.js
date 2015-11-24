@@ -26,8 +26,8 @@ export default class Explore extends Component {
     this.refs.input.value = val
   }
 
-  handleKeyUp(e) {
-    if (e.keyCode === 13) {
+  handleKeyUp(err) {
+    if (err.keyCode === 13) {
       this.handleGoClick()
     }
   }
@@ -60,5 +60,5 @@ export default class Explore extends Component {
 
 Explore.propTypes = {
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 }

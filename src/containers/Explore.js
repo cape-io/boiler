@@ -11,7 +11,7 @@ class Explore extends Component {
   }
 
   handleChange(nextValue) {
-    this.props.pushState(null, `/${nextValue}`)
+    this.props.pushState(null, `/gh/${nextValue}`)
   }
 
   render() {

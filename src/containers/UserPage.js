@@ -6,10 +6,9 @@ import Repo from '../components/Repo'
 import List from '../components/List'
 import zip from 'lodash/array/zip'
 
-function loadData(props) {
-  const { login } = props
-  props.loadUser(login, [ 'name' ])
-  props.loadStarred(login)
+function loadData({ login, loadUser, loadStarred }) {
+  loadUser(login, [ 'name' ])
+  loadStarred(login)
 }
 
 class UserPage extends Component {
@@ -69,14 +68,14 @@ UserPage.propTypes = {
   starredRepos: PropTypes.array.isRequired,
   starredRepoOwners: PropTypes.array.isRequired,
   loadUser: PropTypes.func.isRequired,
-  loadStarred: PropTypes.func.isRequired
+  loadStarred: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {
   const { login } = state.router.params
   const {
     pagination: { starredByUser },
-    entities: { users, repos }
+    entities: { users, repos },
   } = state
 
   const starredPagination = starredByUser[login] || { ids: [] }
@@ -88,11 +87,11 @@ function mapStateToProps(state) {
     starredRepos,
     starredRepoOwners,
     starredPagination,
-    user: users[login]
+    user: users[login],
   }
 }
 
 export default connect(mapStateToProps, {
   loadUser,
-  loadStarred
+  loadStarred,
 })(UserPage)

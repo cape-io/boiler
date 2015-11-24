@@ -1,11 +1,11 @@
-const UPDATE = 'email/UPDATE';
-const ASYNC_VALIDATE = 'email/ASYNC_VALIDATE';
-const ASYNC_VALIDATION = 'email/ASYNC_VALIDATION';
-const ASYNC_REQUEST_FAILURE = 'email/ASYNC_REQUEST_FAILURE';
-const SEND_TOKEN = 'email/SEND_EMAIL_TOKEN';
-const SENT_TOKEN = 'email/SENT_EMAIL_TOKEN';
+const UPDATE = 'email/UPDATE'
+const ASYNC_VALIDATE = 'email/ASYNC_VALIDATE'
+const ASYNC_VALIDATION = 'email/ASYNC_VALIDATION'
+const ASYNC_REQUEST_FAILURE = 'email/ASYNC_REQUEST_FAILURE'
+const SEND_TOKEN = 'email/SEND_EMAIL_TOKEN'
+const SENT_TOKEN = 'email/SENT_EMAIL_TOKEN'
 
-import emailValidate from './emailValidate';
+import emailValidate from './emailValidate'
 
 const initialState = {
   asyncValid: false,
@@ -24,16 +24,16 @@ const initialState = {
   user: null,
   value: '',
   visited: false,
-};
+}
 
 function isOnLine() {
-  return navigator.onLine;
+  return navigator.onLine
 }
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case UPDATE:
-      const { value, errorMsg, ...other } = action.payload;
+      const { value, errorMsg, ...other } = action.payload
       return {
         ...state,
         ...other,
@@ -42,35 +42,35 @@ export default function reducer(state = initialState, action = {}) {
         errorMsg: value ? errorMsg : null,
         value: value,
         user: null,
-      };
+      }
     case ASYNC_VALIDATE:
       return {
         ...state,
         asyncValidating: true,
-      };
+      }
     case ASYNC_REQUEST_FAILURE:
       return {
         ...state,
         ...action.payload,
-      };
+      }
     case ASYNC_VALIDATION:
       return {
         ...state,
         ...action.payload,
-      };
+      }
     case SEND_TOKEN:
       return {
         ...state,
         sendingToken: true,
-      };
+      }
     case SENT_TOKEN:
       return {
         ...state,
         sendingToken: false,
         sentTokenSuccess: action.payload,
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
 
@@ -85,7 +85,7 @@ function handleAsyncValidation(res) {
       status: res.hasErrors ? 'error' : 'success',
       ...res,
     },
-  };
+  }
 }
 // Most likely a network failure.
 function handleAsyncFailure() {
@@ -97,7 +97,7 @@ function handleAsyncFailure() {
       asyncValidating: false,
       onLine: isOnLine(),
     },
-  };
+  }
 }
 
 function handleEmailTokenResponse({status, reject_reason}) {
@@ -105,30 +105,30 @@ function handleEmailTokenResponse({status, reject_reason}) {
     type: SENT_TOKEN,
     payload: (status === 'sent'),
     meta: {reject_reason},
-  };
+  }
 }
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
-    return response.json();
+    return response.json()
   } else if (response.status === 400) {
     return {
       hasErrors: true,
       errorMsg: 'Invalid email address.',
       // statusCode: response.status,
-    };
+    }
   }
   // Probably a server error.
   return {
     statusText: response.statusText,
     statusCode: response.status,
     asyncRequestFailure: true,
-  };
+  }
 }
 // Update the curent value. Update various properties based on validation.
 export function onChange(email) {
   // Get initial validation results.
-  const syncValidateResults = emailValidate(email);
+  const syncValidateResults = emailValidate(email)
   // Paint the basic action.
   const action = {
     type: UPDATE,
@@ -136,50 +136,50 @@ export function onChange(email) {
       ...syncValidateResults,
       onLine: isOnLine(),
     },
-  };
+  }
   // Send action object. No async processing.
-  return action;
+  return action
 }
 
 export function onSubmit() {
   return (dispatch, getState) => {
     // @TODO Need a way to know what the root key for this module.
-    const { email: {hasErrors, value, asyncValidating} } = getState();
+    const { email: {hasErrors, value, asyncValidating} } = getState()
     // Decide if we need an async validation.
     if (hasErrors) {
-      return;
+      return
     }
     if (asyncValidating) {
-      return;
+      return
     }
     if (!isOnLine()) {
-      dispatch(handleAsyncFailure());
-      return;
+      dispatch(handleAsyncFailure())
+      return
     }
     // Dispatch ASYNC_VALIDATE event.
-    dispatch({type: ASYNC_VALIDATE});
+    dispatch({type: ASYNC_VALIDATE})
     // Run async call.
     const options = {
       //credentials: 'include',
-    };
+    }
     fetch(`http://kc.l:3031/api/user/email/${value}`, options)
       .then(checkStatus)
       .then(json => dispatch(handleAsyncValidation(json)))
-      .catch((err) => dispatch(handleAsyncFailure(err)));
-  };
+      .catch((err) => dispatch(handleAsyncFailure(err)))
+  }
 }
 
 export function sendToken(email) {
   return (dispatch, getState) => {
     // @TODO Need a way to know what the root key for this module.
-    const { email: {user: {id}} } = getState();
+    const { email: {user: {id}} } = getState()
     // Decide if we need an async validation.
     if (!isOnLine()) {
-      dispatch(handleAsyncFailure());
-      return;
+      dispatch(handleAsyncFailure())
+      return
     }
     // Dispatch ASYNC_VALIDATE event.
-    dispatch({type: SEND_TOKEN});
+    dispatch({type: SEND_TOKEN})
     // Run async call.
     const options = {
       method: 'post',
@@ -188,10 +188,10 @@ export function sendToken(email) {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-    };
+    }
     fetch(`http://kc.l:3031/api/user/token/send`, options)
       .then((response) => response.json())
       .then(json => dispatch(handleEmailTokenResponse(json)))
-      .catch((err) => dispatch(handleEmailTokenResponse(err)));
-  };
+      .catch((err) => dispatch(handleEmailTokenResponse(err)))
+  }
 }

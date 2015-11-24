@@ -46,6 +46,7 @@
     "react-redux": "4.x",
     "react-router": "^1.0.0",
     "redux": "3.x",
+    "redux-form": "^3.0.12",
     "redux-localstorage": "^1.0.0-rc4",
     "redux-router": "^1.0.0-beta4 ",
     "redux-thunk": "^1.0.0",

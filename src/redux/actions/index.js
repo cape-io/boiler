@@ -10,9 +10,10 @@ function fetchUser(login) {
   return {
     [CALL_API]: {
       types: [ USER_REQUEST, USER_SUCCESS, USER_FAILURE ],
+      api: 'github',
       endpoint: `users/${login}`,
-      schema: Schemas.USER
-    }
+      schema: Schemas.USER,
+    },
   }
 }
 
@@ -39,9 +40,10 @@ function fetchRepo(fullName) {
   return {
     [CALL_API]: {
       types: [ REPO_REQUEST, REPO_SUCCESS, REPO_FAILURE ],
+      api: 'github',
       endpoint: `repos/${fullName}`,
-      schema: Schemas.REPO
-    }
+      schema: Schemas.REPO,
+    },
   }
 }
 
@@ -69,9 +71,10 @@ function fetchStarred(login, nextPageUrl) {
     login,
     [CALL_API]: {
       types: [ STARRED_REQUEST, STARRED_SUCCESS, STARRED_FAILURE ],
+      api: 'github',
       endpoint: nextPageUrl,
-      schema: Schemas.REPO_ARRAY
-    }
+      schema: Schemas.REPO_ARRAY,
+    },
   }
 }
 
@@ -82,7 +85,7 @@ export function loadStarred(login, nextPage) {
   return (dispatch, getState) => {
     const {
       nextPageUrl = `users/${login}/starred`,
-      pageCount = 0
+      pageCount = 0,
     } = getState().pagination.starredByUser[login] || {}
 
     if (pageCount > 0 && !nextPage) {
@@ -104,9 +107,10 @@ function fetchStargazers(fullName, nextPageUrl) {
     fullName,
     [CALL_API]: {
       types: [ STARGAZERS_REQUEST, STARGAZERS_SUCCESS, STARGAZERS_FAILURE ],
+      api: 'github',
       endpoint: nextPageUrl,
-      schema: Schemas.USER_ARRAY
-    }
+      schema: Schemas.USER_ARRAY,
+    },
   }
 }
 
@@ -117,7 +121,7 @@ export function loadStargazers(fullName, nextPage) {
   return (dispatch, getState) => {
     const {
       nextPageUrl = `repos/${fullName}/stargazers`,
-      pageCount = 0
+      pageCount = 0,
     } = getState().pagination.stargazersByRepo[fullName] || {}
 
     if (pageCount > 0 && !nextPage) {
@@ -130,9 +134,38 @@ export function loadStargazers(fullName, nextPage) {
 
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
 
+export const FORM_REQUEST = 'FORM_REQUEST'
+export const FORM_SUCCESS = 'FORM_SUCCESS'
+export const FORM_FAILURE = 'FORM_FAILURE'
+
+// Fetches a single user from Github API.
+// Relies on the custom API middleware defined in ../middleware/api.js.
+function fetchForm(formId) {
+  return {
+    [CALL_API]: {
+      types: [ FORM_REQUEST, FORM_SUCCESS, FORM_FAILURE ],
+      api: 'cape',
+      endpoint: `content/type/${formId}`,
+      schema: Schemas.FORM,
+    },
+  }
+}
+
+// Fetches a single form from CAPE API unless it is cached.
+// Relies on Redux Thunk middleware.
+export function loadForm(formId) {
+  return (dispatch, getState) => {
+    const form = getState().entities.form[formId]
+    if (form) {
+      return null
+    }
+    return dispatch(fetchForm(formId))
+  }
+}
+
 // Resets the currently visible error message.
 export function resetErrorMessage() {
   return {
-    type: RESET_ERROR_MESSAGE
+    type: RESET_ERROR_MESSAGE,
   }
 }

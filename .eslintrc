@@ -1,10 +1,12 @@
-{ "extends": [
+{
+  "extends": [
     "eslint-config-airbnb",
     "rackt",
     "import/warnings"
   ],
   "ecmaFeatures": {
-    "jsx": true
+    "jsx": true,
+    "modules": true
   },
   "env": {
     "browser": true,
@@ -13,18 +15,18 @@
   },
   "rules": {
     "comma-dangle": [2, "always-multiline"],
-    "react/jsx-uses-react": 2,
-    "react/jsx-uses-vars": 2,
-    "react/react-in-jsx-scope": 2,
     "id-length": [2, {
       "min": 3,
       "max": 30,
       "properties": "never",
-      "exceptions": ["r", "_", "id", "rq", "db", "cb", "io"]
+      "exceptions": ["cb", "r", "_", "id", "rq", "db", "io"]
     }],
     "import/no-named-as-default": 2,
     "import/no-require": 0,
     "import/default": 0,
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2,
     "no-console": 1,
     "no-alert": 1,
     "no-trailing-spaces": 2
@@ -37,5 +39,5 @@
     "import/resolve": {
       "moduleDirectory": ["node_modules", "src"]
     }
-  },
+  }
 }

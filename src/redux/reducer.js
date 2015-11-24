@@ -2,17 +2,23 @@ import * as ActionTypes from './actions'
 import merge from 'lodash/object/merge'
 import { routerStateReducer as router } from 'redux-router'
 import { combineReducers } from 'redux'
+import { reducer as formReducer } from 'redux-form'
 
 import paginate from './reducers/paginate'
 import db from './modules/db'
 import email from './modules/email'
 
 // Updates an entity cache in response to any action with response.entities.
-function entities(state = { users: {}, repos: {} }, action) {
+// Define our default entities collection database.
+const defaultEntityState = {
+  forms: {},
+  repos: {},
+  users: {},
+}
+function entities(state = defaultEntityState, action) {
   if (action.response && action.response.entities) {
     return merge({}, state, action.response.entities)
   }
-
   return state
 }
 
@@ -53,6 +59,7 @@ const rootReducer = combineReducers({
   db,
   email,
   entities,
+  form: formReducer,
   pagination,
   errorMessage,
   router,
