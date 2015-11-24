@@ -1,8 +1,8 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
     './src/index',
@@ -17,10 +17,12 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
   ],
   module: {
-    loaders: [{
+    loaders: [ {
       test: /\.js$/,
-      loaders: ['babel'],
+      loaders: [
+        'babel',
+      ],
       include: path.join(__dirname, 'src'),
-    }]
-  }
-};
+    } ],
+  },
+}
