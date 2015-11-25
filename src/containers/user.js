@@ -5,6 +5,7 @@ import { loadForm } from '../redux/actions'
 import JoinLogin from '../components/JoinLogin'
 import Loading from '../components/Loading'
 
+// Move into a constants file or something.
 const FORM_ID = 'cape/login'
 
 // This is called from within the container component class.
