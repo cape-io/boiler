@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 
 import Input from './Input'
 import ReduxFormProps from './ReduxFormProps'
+import SubmitButtons from './SubmitButtons'
 
 function Form(props) {
   const {
@@ -37,16 +38,11 @@ function Form(props) {
             )
           })
         }
-        <div className="form-group">
-          <div className="col-sm-offset-2 col-sm-10">
-            <button className="btn btn-success" onClick={handleSubmit}>
-              <i className="fa fa-paper-plane"/> Submit
-            </button>
-            <button className="btn btn-warning" onClick={resetForm} style={{ marginLeft: 15 }}>
-              <i className="fa fa-undo"/> Reset
-            </button>
-          </div>
-        </div>
+        <SubmitButtons
+          {...formInfo.submit}
+          handleSubmit={handleSubmit}
+          resetForm={resetForm}
+        />
       </form>
 
       <ReduxFormProps {...{ active, dirty, pristine, valid, invalid }} />

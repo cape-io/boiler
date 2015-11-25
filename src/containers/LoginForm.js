@@ -1,9 +1,11 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
+import { pushState } from 'redux-router'
 
-import FieldGroup from '../../components/Form/Form'
-import * as actions from '../../redux/modules/email'
+import FieldGroup from '../components/Form/Form'
+// import * as actions from '../../redux/modules/email'
+import { createValidator } from '../utils/formValidation'
 
 // Move into a constants file or something.
 const FORM_ID = 'cape/login'
@@ -27,18 +29,22 @@ function mapStateToProps(state) {
 
 // Which action creators does it want to receive by props?
 // This gets merged into props too.
-// Not sure why it needs to happen here.
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators(actions, dispatch)
-// }
+const mapDispatchToProps = {
+  pushState,
+}
 
-function handleSubmit(data) {
-  console.log(data);
+function mergeProps(stateProps, dispatchProps, ownProps) {
+  function handleSubmit({ email }) {
+    dispatchProps.pushState(null, `/user/${email}`)
+  }
+  const otherProps = {
+    onSubmit: handleSubmit,
+    validate: createValidator(stateProps.formInfo),
+  }
+  return Object.assign(otherProps, ownProps, stateProps, dispatchProps)
 }
 
 export default compose(
-  connect(mapStateToProps),
-  reduxForm({
-    onSubmit: handleSubmit,
-  })
+  connect(mapStateToProps, mapDispatchToProps, mergeProps),
+  reduxForm()
 )(FieldGroup)

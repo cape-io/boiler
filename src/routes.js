@@ -5,10 +5,11 @@ import {
     App,
     Counter,
     Explore,
-    JoinLogin,
-    JoinLoginEmail,
+    GithubUserPage,
     List,
+    LoginForm,
     RepoPage,
+    User,
     UserPage,
   } from './containers'
 
@@ -19,8 +20,12 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={List} />
     <Route path="counter" component={Counter} increment={1} color="darkred" />
-    <Route path="user" component={JoinLogin}>
-      <IndexRoute component={JoinLoginEmail} />
+    <Route path="user" component={User}>
+      <IndexRoute component={LoginForm} />
+      <Route
+        path=":login"
+        component={UserPage}
+      />
     </Route>
     <Route path="gh" component={Explore}>
       <Route
@@ -29,7 +34,7 @@ export default (
       />
       <Route
         path=":login"
-        component={UserPage}
+        component={GithubUserPage}
       />
     </Route>
   </Route>

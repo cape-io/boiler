@@ -40,8 +40,6 @@ function mapStateToProps(state) {
   // Decide what headerMsg and leadMsg to have based on the route.
   // Is it better to have different templates or different data?
   return {
-    headerMsg: 'Link or Join',
-    leadMsg: 'Enter your email',
     // The details needed to build the form dynamically.
     // See object here: http://v5.api.cape.io/api/content/type/cape/login
     form: forms[FORM_ID],
