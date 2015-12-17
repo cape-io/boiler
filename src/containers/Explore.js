@@ -37,8 +37,8 @@ Explore.propTypes = {
   children: PropTypes.node,
 }
 
-function mapStateToProps(state) {
-  const { login, name } = state.router.params
+function mapStateToProps(state, props) {
+  const { params: { login, name } } = props
   let inputValue = login || ''
   if (name) {
     inputValue += '/'+name

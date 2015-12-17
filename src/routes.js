@@ -10,32 +10,30 @@ import {
     LoginForm,
     RepoPage,
     User,
-    UserPage,
+    // UserPage,
   } from './containers'
 
 /**
  * Please keep routes in alphabetical order
  */
-export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={List} />
-    <Route path="counter" component={Counter} increment={1} color="darkred" />
-    <Route path="user" component={User}>
-      <IndexRoute component={LoginForm} />
-      <Route
-        path=":login"
-        component={UserPage}
-      />
+export default function createRoutes() {
+  return (
+    <Route path="/" component={App}>
+      <IndexRoute component={List} />
+      <Route path="counter" component={Counter} increment={1} color="darkred" />
+      <Route path="user" component={User}>
+        <IndexRoute component={LoginForm} />
+      </Route>
+      <Route path="gh" component={Explore}>
+        <Route
+          path=":login/:name"
+          component={RepoPage}
+        />
+        <Route
+          path=":login"
+          component={GithubUserPage}
+        />
+      </Route>
     </Route>
-    <Route path="gh" component={Explore}>
-      <Route
-        path=":login/:name"
-        component={RepoPage}
-      />
-      <Route
-        path=":login"
-        component={GithubUserPage}
-      />
-    </Route>
-  </Route>
-)
+  )
+}
