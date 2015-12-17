@@ -1,5 +1,7 @@
-import mapValues from 'lodash/object/mapValues'
+// import mapValues from 'lodash/object/mapValues'
 import forEach from 'lodash/collection/forEach'
+import get from 'lodash/object/get'
+import set from 'lodash/object/set'
 import isArray from 'lodash/lang/isArray'
 import isString from 'lodash/lang/isString'
 // import memoize from 'lodash/function/memoize'
@@ -48,14 +50,55 @@ function fieldValidation(value, validators) {
 }
 
 // Take the field info object and create a validation function.
-export function createValidator({ field }) {
+export function createValidator({ field, formElements }) {
   // Create a function that accepts the form data object.
   return (data = {}) => {
+    const fieldErrors = {}
     // Loop through every field in the form.
     // Returns an object of errors.
-    return mapValues(field, (fieldInfo, fieldId) => (
-      // Validate the field value.
-      fieldValidation(data[fieldId], fieldInfo.validators)
-    ))
+    forEach(formElements, ({ fields, id, type }) => {
+      if (type === 'collection') {
+        const collectionValues = get(data, id)
+        if (collectionValues && collectionValues.length) {
+          const collectionErrors = collectionValues.map( (item) => {
+            const _fieldErrors = {}
+            forEach(fields, ({ infoKey, dataKey }) => {
+              const fieldInfo = get(field, infoKey)
+              if (!fieldInfo) {
+                console.error(infoKey, fields)
+              }
+              const { validators } = fieldInfo
+              const value = get(item, dataKey)
+              // Validate the field value.
+              const validationErr = fieldValidation(value, validators)
+              if (validationErr) {
+                set(_fieldErrors, dataKey, validationErr)
+              }
+            })
+            return _fieldErrors
+          })
+          set(fieldErrors, id, collectionErrors)
+        }
+        return
+      }
+      forEach(fields, ({ infoKey, dataKey }) => {
+        const fieldInfo = get(field, infoKey)
+        if (!fieldInfo) {
+          console.error(infoKey, fields)
+        }
+        const { validators } = fieldInfo
+        const value = get(data, dataKey)
+        // Validate the field value.
+        const validationErr = fieldValidation(value, validators)
+        if (validationErr) {
+          set(fieldErrors, dataKey, validationErr)
+        }
+      })
+    })
+
+
+    // fieldErrors._error = 'Missing required fields.'
+    // console.log(fieldErrors)
+    return fieldErrors
   }
 }

@@ -1,11 +1,15 @@
+import { isURL } from 'validator'
 import isEmpty from 'lodash/lang/isEmpty'
-
+import emailValidate from './emailValidate'
 // Functions should return error message string.
 
 export function isEmail(value) {
-  // Let's not start a debate on email regex. This is just for an example app!
-  if (!isEmpty(value) && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-    return 'Invalid email address'
+  if (!value) {
+    return undefined
+  }
+  const { errorMsg, hasErrors } = emailValidate(value)
+  if (hasErrors) {
+    return errorMsg
   }
 }
 
@@ -18,6 +22,26 @@ export function isInteger(value) {
 export function isRequired(value) {
   if (isEmpty(value)) {
     return 'Required'
+  }
+}
+
+const urlOptions = {
+  protocols: [ 'http','https' ],
+  require_tld: true,
+  require_protocol: true,
+  require_valid_protocol: true,
+  allow_underscores: false,
+  host_whitelist: false,
+  host_blacklist: false,
+  allow_trailing_dot: false,
+  allow_protocol_relative_urls: false,
+}
+export function isUrl(value) {
+  if (!value) {
+    return undefined
+  }
+  if(!isURL(value, urlOptions)) {
+    return 'Invalid URL. Please check the formatting.'
   }
 }
 
