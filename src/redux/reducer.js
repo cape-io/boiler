@@ -1,6 +1,6 @@
 import * as ActionTypes from './actions'
 import merge from 'lodash/object/merge'
-import { routerStateReducer as router } from 'redux-router'
+import { routeReducer } from 'redux-simple-router'
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 
@@ -62,7 +62,7 @@ const rootReducer = combineReducers({
   form: formReducer,
   pagination,
   errorMessage,
-  router,
+  routing: routeReducer,
 })
 
 export default rootReducer

@@ -1,7 +1,7 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { pushState } from 'redux-router'
+import { pushPath } from 'redux-simple-router'
 
 import FieldGroup from '../components/Form/Form'
 // import * as actions from '../../redux/modules/email'
@@ -30,12 +30,12 @@ function mapStateToProps(state) {
 // Which action creators does it want to receive by props?
 // This gets merged into props too.
 const mapDispatchToProps = {
-  pushState,
+  pushPath,
 }
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
   function handleSubmit({ email }) {
-    dispatchProps.pushState(null, `/user/${email}`)
+    dispatchProps.pushPath(null, `/user/${email}`)
   }
   const otherProps = {
     onSubmit: handleSubmit,
