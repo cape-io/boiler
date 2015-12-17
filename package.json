@@ -2,6 +2,18 @@
   "name": "boiler",
   "version": "1.0.1",
   "description": "Boilerplate with hot reloading React components.",
+  "homepage": "https://github.com/cape-io/boiler",
+  "author": "Kai Curry <kai@cape.io> (http://github.com/webmasterkai)",
+  "contributors": [
+    {
+      "name": "Kai Curry",
+      "email": "kai@cape.io"
+    },
+    {
+      "name": "Tim Lupfer",
+      "email": "tim@cape.io"
+    }
+  ],
   "scripts": {
     "clean": "rimraf dist",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
@@ -9,11 +21,16 @@
     "start": "node devServer.js",
     "lint": "eslint src"
   },
+  "main": "devServer.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/cape-io/boiler.git"
   },
+  "bugs": {
+    "url": "https://github.com/cape-io/cape-editor/issues"
+  },
   "keywords": [
+    "cape",
     "react",
     "reactjs",
     "boilerplate",
@@ -26,16 +43,13 @@
     "babel",
     "react-transform"
   ],
-  "author": "Kai Curry <kai@cape.io> (http://github.com/webmasterkai)",
   "license": "CC0-1.0",
-  "bugs": {
-    "url": "https://github.com/cape-io/boiler/issues"
+  "engines": {
+    "node": ">=5.0.0"
   },
-  "homepage": "https://github.com/cape-io/boiler",
   "dependencies": {
     "babel-polyfill": "^6.2.0",
     "classnames": "^2.2.0",
-    "email-validator": "^1.0.3",
     "history": "^1.13.1",
     "humps": "^1.0.0",
     "isomorphic-fetch": "^2.2.0",
@@ -45,17 +59,19 @@
     "normalizr": "^1.4.0",
     "react": "0.14.x",
     "react-dom": "0.14.x",
+    "react-json-inspector": "Lapple/react-json-inspector",
     "react-redux": "4.x",
-    "react-router": "^1.0.0",
-    "react-select": "1.0.0-beta5",
+    "react-router": "1.0.x",
+    "react-select": "1.0.0-beta7",
     "react-textarea-autosize": "^3.1.0",
-    "react-widgets": "^3.1.0",
+    "react-widgets": "3.1.x",
     "redux": "3.x",
-    "redux-form": "^3.0.12",
+    "redux-form": "4.x",
     "redux-localstorage": "^1.0.0-rc4",
-    "redux-router": "^1.0.0-beta4 ",
+    "redux-simple-router": "^0.0.10",
     "redux-thunk": "^1.0.0",
-    "scroll-behavior": "^0.3.0"
+    "scroll-behavior": "^0.3.0",
+    "validator": "^4.4.0"
   },
   "devDependencies": {
     "babel-core": "5.6.x",
