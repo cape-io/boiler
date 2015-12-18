@@ -19,10 +19,13 @@ module.exports = {
   module: {
     loaders: [ {
       test: /\.js$/,
-      loaders: [
-        'babel',
-      ],
+      exclude: /node_modules/,
       include: path.join(__dirname, 'src'),
+      loader: 'babel',
+      query: {
+          cacheDirectory: true,
+          presets: ['es2015', 'stage-0', 'react'],
+      },
     } ],
   },
 }
