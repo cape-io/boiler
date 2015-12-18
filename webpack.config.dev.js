@@ -21,7 +21,7 @@ module.exports = {
       test: /\.js$/,
       exclude: /node_modules/,
       include: path.join(__dirname, 'src'),
-      loader: 'babel',
+      loaders: ['babel'],
       query: {
           cacheDirectory: true,
           presets: ['es2015', 'stage-0', 'react'],
