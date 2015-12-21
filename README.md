@@ -27,8 +27,9 @@ Built with **[babel-plugin-react-transform](https://github.com/gaearon/babel-plu
 
 ![](http://i.imgur.com/AhGY28T.gif)
 
+##Install
 ```
-git clone https://github.com/cape-io/boiler.git
+git clone git@github.com:cape-io/boiler.git
 cd boiler
 npm install
 npm start
